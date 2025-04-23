@@ -31,20 +31,29 @@ As mentioned previously, some rows represent the team summary, which we need to 
 
 The results column did not have any missing values. However, the stats listed above (goldat*, xpat*, and csat*), had a significant amounts of missing values. This makes sense, as games can end quicker than 25 minutes. 
 
-goldat10        18920
-xpat10          18920
-csat10          18920
-goldat15        18920
-xpat15          18920
-csat15          18920
-goldat20        19300
-xpat20          19300
-csat20          19300
-goldat25        25610
-xpat25          25610
-csat25          25610
+| Column Name | Definition |
+| --- | --- |
+|goldat10   |     18920|
+|xpat10     |     18920|
+|csat10     |     18920|
+|goldat15   |     18920|
+|xpat15     |     18920|
+|csat15     |     18920|
+|goldat20   |     19300|
+|xpat20     |     19300|
+|csat20     |     19300|
+|goldat25   |     25610|
+|xpat25     |     25610|
+|csat25     |     25610|
 
 #### Univariate
+ <iframe
+ src="assets/goldat10_hist.html"
+ width="800"
+ height="600"
+ frameborder="0"
+ ></iframe>
+
 #### Bivariate
 #### Aggragate 
 #### Imputation
