@@ -77,7 +77,7 @@ The results column did not have any missing values. However, the stats listed ab
 
 
 #### Aggragate 
-Looking at a small subset of the champions, we see the following.
+Looking at a small subset of the champions and pivoting the position column, we see the following.
 
 | position   |       Rell |    Darius |    Ekko |
 |-----------|-----------|----------|--------|
