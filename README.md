@@ -24,14 +24,15 @@ That is a alot of data, but we are only interested in a subset of the data. Name
 | xpat* | The total eXperience Points (XP) a player has **at** time *, which can be 10, 15, 20, or 25 minutes in this dataset.  |
 | csat* | The total Creep Score (CS) a player has **at** time *, which can be 10, 15, 20, or 25 minutes in this dataset. This keeps track of how many minions, jungles monsters, and other creatures the player has killed. |
 
+
 ## Data Cleaning and Exploratory Data Analysis
 
 #### Data Cleaning
 As mentioned previously, some rows represent the team summary, which we need to remove. This ends up leaving us 125480 rows, which is 12548 games!
 
-The results column did not have any missing values. However, the stats listed above (goldat*, xpat*, and csat*), had a significant amounts of missing values. This makes sense, as games can end quicker than 25 minutes. 
+The results column did not have any missing values. However, the stats listed above (goldat*, xpat*, and csat*), had a significant amounts of missing values. This makes sense, as games can end quicker than 25 minutes. We will resolve the missing data in the imputation step later.
 
-| Column Name | Definition |
+| Column Name | Number of Missing Values |
 | --- | --- |
 |goldat10   |     18920|
 |xpat10     |     18920|
@@ -54,8 +55,31 @@ The results column did not have any missing values. However, the stats listed ab
  frameborder="0"
  ></iframe>
 
+ Gold has a huge impact on the game, as it what determines what items you can buy. From the observed graph, we can see that there two distributions of gold at 10 minutes, which suggests that gold distribution is effected by other factors. 
+
+
 #### Bivariate
+
+ <iframe
+ src="assets/goldat10vsChamp.html"
+ width="800"
+ height="600"
+ frameborder="0"
+ ></iframe>
+
+ <iframe
+ src="assets/goldat25vsChamp.html"
+ width="800"
+ height="600"
+ frameborder="0"
+ ></iframe>
+
+ As we can see from both of the graphs aboves, typical support champions, such as Leona, earn less gold. Even as the game progresses (at 10 minutes vs at 25), it seems as though supports still lag behind in gold. 
+
+
 #### Aggragate 
+
+
 #### Imputation
 
 
