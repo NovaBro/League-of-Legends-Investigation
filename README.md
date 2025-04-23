@@ -171,4 +171,4 @@ Further more, I added StandardScaler() feature to the process. This was to elimi
 K-nearest neighbors is a non-parametric algorithm that classifies a data point by looking at the k closest data points (neighbors) in the training set and assigning the most common label among them. It works based on the idea that similar data points are likely to have similar outcomes.
 
 Overall, the model is straight forward, with the new features first made, then StandardScaler() applied, which is then fed to KNeighborsClassifier().
-The method used to find the best hyperparameter *k*, was a GridSearchCV in the range 1 to 30. The best value determined for the base model was k=29. When given to the final model with the new features, we yield a %66.8 accuracy rate, which is a %1.5 improvement.
+The method used to find the best hyperparameter *k*, was a GridSearchCV in the range 1 to 30. The best value determined for the base model was k=28. When given to the final model with the new features, we yield a %66.8 accuracy rate, which is a %1.5 improvement.
