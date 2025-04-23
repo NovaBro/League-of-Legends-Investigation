@@ -137,6 +137,9 @@ The current model is not very good. Just randomly guesing, one would expect a %5
 Describe the modeling algorithm you chose, the hyperparameters that ended up performing the best, and the method you used to select hyperparameters and your overall model. Describe how your Final Model’s performance is an improvement over your Baseline Model’s performance. -->
 
 There is a function I devised, called 'decay_feature' which calculates the 'discounted value' of each stat (goldat*, xpat*, and csat*) across time. In other words, creating the following new features:
+goldat_speed, xpat_speed, csat_speed.
+
+goldat_speed and goldat* example:
 
 |   goldat10 |   goldat15 |   goldat20 |   goldat25 |   goldat_speed |
 |-----------:|-----------:|-----------:|-----------:|---------------:|
@@ -147,6 +150,8 @@ There is a function I devised, called 'decay_feature' which calculates the 'disc
 |       2678 |       3836 |       4785 |       5840 |         7861.2 |
 
 What this means, is that for stats that come latter, they are multiplied by a discount or decay factor to reduce their impact. The thinking of this function, was that there sould be more emphasis on gold, xp, and cs advantages in the early game. In the early game, there may be more volitility, which means snowballing can have a greater impact. This feature has the effect of 'increasing the separation distance' between data points that are at different times, while moving features at the same time point closer.
+
+Code for decay_feature:
 
 ```
 def decay_feature(x:pd.DataFrame):
@@ -161,4 +166,9 @@ def decay_feature(x:pd.DataFrame):
     return x_copy
 ```
 
-%67.0
+Further more, I added StandardScaler() feature to the process. This was to eliminate the effect of different scales of different features. For example, the csat* feature had numbers in the hundreds, while goldat and xpat where in the thousands. 
+
+K-nearest neighbors is a non-parametric algorithm that classifies a data point by looking at the k closest data points (neighbors) in the training set and assigning the most common label among them. It works based on the idea that similar data points are likely to have similar outcomes.
+
+Overall, the model is straight forward, with 
+The method used to find the best hyperparameter *k*, was a GridSearchCV in the range 1 to 30. The best value determined for the base model was k=29. When given to the final model with the new features, we yield a %66.8 accuracy rate, which is a %1.5 improvement.
