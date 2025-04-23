@@ -59,7 +59,6 @@ The results column did not have any missing values. However, the stats listed ab
 
 
 #### Bivariate
-
  <iframe
  src="assets/goldat10vsChamp.html"
  width="800"
@@ -91,7 +90,25 @@ Looking at a small subset of the champions, we see the following.
 Some champions are played in multiple roles. It would be interesting to see if there are ways to find 'off meta' picks for certain roles that might give teams an edge. Values that are whole numbers, are likely due to a champion played once in that role. Nan values are because no one has played that champion for that roll. Rell, for example, is only played support. This table also gives a window on how deadly certain champs are. Darius has on average, 13 kills in the top lane, which is very high!
 
 #### Imputation
+In order to know get a better understanding of which condition to inpute the data, it is helpful to graph the data we are working with.
 
+ <iframe
+ src="assets/goldat10nosup_dist.html"
+ width="800"
+ height="600"
+ frameborder="0"
+ ></iframe>
+
+This graph gives a good indication that the gold income is indeed dependent on position. 
+
+ <iframe
+ src="assets/imputation_compare.html"
+ width="800"
+ height="600"
+ frameborder="0"
+ ></iframe>
+
+I tried to do 
 
 ## Framing a Prediction Problem
 
