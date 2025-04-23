@@ -108,10 +108,15 @@ This graph gives a good indication that the gold income is indeed dependent on p
  frameborder="0"
  ></iframe>
 
-I tried to do 
+First, I tried figuring out what condition would be the best, which I think would come down to either the champion chosen, or the position. Thus, I compared the goldat stat across time for various champions. I found the distribution to vary more than that of the goldat stat across time for various positions.
+A notible point is that many of the goldat stats across time, are bimodel. This is likely due to the fact that the support position recieves less gold than other roles, creating a separate bump in the distribution. Interestingly enough as well, looking at the xpat stat, you can see a trimodel distribution, with sup have the least, jng and bot tied, and top having the most xp.
+
+After exploring imputation on position, I came to find that conditional probability on position to most closely follow the data before imputation. In fact, it is difficult to see the difference without closely zooming in on the graph to see the difference.
 
 ## Framing a Prediction Problem
+The problem that I pose is a classification model. I want to see if it is possible to classify a team into two categories, a Win or a Lost state. The response variable is the match outcome, which is binary: either a Win or a Loss. I chose this because it is the most important final result of a game and can be used to evaluate team performance or strategy effectiveness. I am using the Accuracy metric since it measures the overall percentage of correct predictions (both wins and losses). It’s useful when classes are balanced (i.e., about the same number of wins and losses).
 
+Through the game, each player has access to information on how much gold they collect, the amount of xp, and cs farmed. This is by definition of playing the game, and by access to these metrics through the player user interface. Thus, we would have access to this information to predict the outcome of the game. 
 
 ## Baseline Model
 
