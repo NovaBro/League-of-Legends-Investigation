@@ -1,4 +1,4 @@
-# League-of-Legends-Investigation
+# Can Time, Money, and Experience Determine Wins in League of Legends?
 
 ## Introduction
 
@@ -114,11 +114,51 @@ A notible point is that many of the goldat stats across time, are bimodel. This 
 After exploring imputation on position, I came to find that conditional probability on position to most closely follow the data before imputation. In fact, it is difficult to see the difference without closely zooming in on the graph to see the difference.
 
 ## Framing a Prediction Problem
+<!-- Clearly state your prediction problem and type (classification or regression). If you are building a classifier, make sure to state whether you are performing binary classification or multiclass classification. Report the response variable (i.e. the variable you are predicting) and why you chose it, the metric you are using to evaluate your model and why you chose it over other suitable metrics (e.g. accuracy vs. F1-score).
+
+Note: Make sure to justify what information you would know at the “time of prediction” and to only train your model using those features. For instance, if we wanted to predict your Final Exam grade, we couldn’t use your Final Project grade, because we (probably) won’t have the Final Project graded before the Final Exam! Feel free to ask questions if you’re not sure. -->
+
 The problem that I pose is a classification model. I want to see if it is possible to classify a team into two categories, a Win or a Lost state. The response variable is the match outcome, which is binary: either a Win or a Loss. I chose this because it is the most important final result of a game and can be used to evaluate team performance or strategy effectiveness. I am using the Accuracy metric since it measures the overall percentage of correct predictions (both wins and losses). It’s useful when classes are balanced (i.e., about the same number of wins and losses).
 
 Through the game, each player has access to information on how much gold they collect, the amount of xp, and cs farmed. This is by definition of playing the game, and by access to these metrics through the player user interface. Thus, we would have access to this information to predict the outcome of the game. 
 
 ## Baseline Model
+<!-- Describe your model and state the features in your model, including how many are quantitative, ordinal, and nominal, and how you performed any necessary encodings. Report the performance of your model and whether or not you believe your current model is “good” and why.
 
+Tip: Make sure to hit all of the points above: many Final Projects in the past have lost points for not doing so. -->
+
+The current model being used is called K-Nearest Neighbors. K-nearest neighbors (KNN) is a simple algorithm that classifies a data point based on the majority label of its k closest points in the training data. In this case, the features we are using are goldat*, xpat*, and csat* for time points 10, 15, 20, 25. These are quantitative features. 
+
+The current model is not very good. Just randomly guesing, one would expect a %50 accuracy rate. The baseline is acheiving %65.3 which is higher than random, but not by much. 
 
 ## Final Model
+<!-- State the features you added and why they are good for the data and prediction task. Note that you can’t simply state “these features improved my accuracy”, since you’d need to choose these features and fit a model before noticing that – instead, talk about why you believe these features improved your model’s performance from the perspective of the data generating process.
+
+Describe the modeling algorithm you chose, the hyperparameters that ended up performing the best, and the method you used to select hyperparameters and your overall model. Describe how your Final Model’s performance is an improvement over your Baseline Model’s performance. -->
+
+There is a function I devised, called 'decay_feature' which calculates the 'discounted value' of each stat (goldat*, xpat*, and csat*) across time. In other words, creating the following new features:
+
+|   goldat10 |   goldat15 |   goldat20 |   goldat25 |   goldat_speed |
+|-----------:|-----------:|-----------:|-----------:|---------------:|
+|       3228 |       5025 |       6506 |       8462 |        10194.1 |
+|       3429 |       5366 |       6854 |       8254 |        10752.2 |
+|       3283 |       5118 |       6511 |       8312 |        10301.2 |
+|       3600 |       5461 |       7306 |       9356 |        11280.7 |
+|       2678 |       3836 |       4785 |       5840 |         7861.2 |
+
+What this means, is that for stats that come latter, they are multiplied by a discount or decay factor to reduce their impact. The thinking of this function, was that there sould be more emphasis on gold, xp, and cs advantages in the early game. In the early game, there may be more volitility, which means snowballing can have a greater impact. This feature has the effect of 'increasing the separation distance' between data points that are at different times, while moving features at the same time point closer.
+
+```
+def decay_feature(x:pd.DataFrame):
+    x_copy = x.copy()
+    for pre in prefix:
+        stat_speed = 0
+        decay_rate = 1
+        for sec in sections:
+            stat_speed+= x[pre + sec] * decay_rate
+            decay_rate -= 0.3
+        x_copy[pre + '_speed'] = stat_speed
+    return x_copy
+```
+
+%67.0
